@@ -4,7 +4,8 @@ from setuptools import setup, find_packages
 
 import peak_detection
 
-install_requires = ['numpy', 'scipy', 'pandas', 'cython', 'scikit-image']
+install_requires = ['cython', 'numpy', 'scipy', 'pandas',
+                    'matplotlib', 'scikit-image']
 
 def install_requirements(install_requires):
     """

@@ -19,6 +19,7 @@ Dependence
 - scipy
 - scikit-image
 - pandas
+- matplotlib (optional)
 
 Installation
 ------------
@@ -71,6 +72,7 @@ peaks = detect_peaks(arr,
 ```
 
 ```python
+# matplotlib is needed
 show_peaks(arr, peaks, stack_id=3)
 ```
 
