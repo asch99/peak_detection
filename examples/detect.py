@@ -2,6 +2,8 @@ import sys
 sys.path.append("..")
 
 from peak_detection import detect_peaks
+from peak_detection import show_peaks
+
 from tifffile import TiffFile
 
 fname = 'sample.tif'
@@ -13,7 +15,8 @@ detection_parameters = {'w_s': 10,
                         }
 
 sample = TiffFile(fname)
-peaks = detect_peaks(sample.asarray(),
+arr = sample.asarray()
+peaks = detect_peaks(arr,
                      shape_label=('t', 'z', 'x', 'y'),
                      parallel=True,
                      verbose=True,
@@ -22,3 +25,5 @@ peaks = detect_peaks(sample.asarray(),
 
 for id, p in peaks.groupby(level="stacks"):
     print p.shape[0]
+
+show_peaks(arr, peaks, 3)

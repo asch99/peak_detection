@@ -33,6 +33,8 @@ Usage example
 
 ```python
 from peak_detection import detect_peaks
+from peak_detection import show_peaks
+
 from tifffile import TiffFile
 
 fname = 'sample.tif'
@@ -44,7 +46,11 @@ detection_parameters = {'w_s': 10,
                         }
 
 sample = TiffFile(fname)
-peaks = detect_peaks(sample.asarray(), shape_label=('t', 'z', 'x', 'y'), parallel=True, **detection_parameters)
+arr = sample.asarray()
+peaks = detect_peaks(arr,
+                     shape_label=('t', 'z', 'x', 'y'),
+                     parallel=True,
+                     **detection_parameters)
 ```
 
 ```
@@ -63,6 +69,13 @@ peaks = detect_peaks(sample.asarray(), shape_label=('t', 'z', 'x', 'y'), paralle
 2013-06-28 19:52:42:INFO:peak_detection.detection: Detection is done
 2013-06-28 19:52:42:INFO:peak_detection.detection: 45 peaks detected in 9 stacks
 ```
+
+```python
+show_peaks(arr, peaks, stack_id=3)
+```
+
+![Outlined peaks](examples/outlined_peaks.png "Outlined peaks")
+
 
 ```python
 print(peaks)

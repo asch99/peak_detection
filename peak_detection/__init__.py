@@ -71,8 +71,12 @@ def in_ipython():
     else:
         return True
 
+__all__ = ['detect_peaks', 'show_peaks',
+           'NoPeaksDetectedException', 'CanceledByUserException']
+
 try:
     from .detection import detect_peaks
+    from .show import show_peaks
     from .detection import NoPeaksDetectedException
     from .detection import CanceledByUserException
 except:
