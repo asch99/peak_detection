@@ -4,9 +4,16 @@ Gaussian Peak detection algorithm
 Python implementation of the Gaussian peak detection described in
 [Segré et al. Nature Methods (2008)](http://www.nature.com/nmeth/journal/v5/n8/full/nmeth.1233.html).
 
+Contributors
+------------
+
+- Guillaume Gay `gllm.gay@gmail.com` : main author
+- Hadrien Mary `hadrien.mary@gmail.com` : contributor
+
 Dependence
 ----------
 
+- python 2.7
 - numpy
 - scipy
 - scikit-image
