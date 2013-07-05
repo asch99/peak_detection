@@ -1,3 +1,13 @@
+# -*- coding: utf-8 -*-
+
+"""
+Python implementation of the Gaussian peak detection described in Segré et
+al. Nature Methods (2008). See https://github.com/bnoi/peak_detection for
+details.
+"""
+
+__version__ = "1.0"
+
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -61,9 +71,12 @@ def in_ipython():
     else:
         return True
 
-from .detection import detect_peaks
-from .detection import NoPeaksDetectedException
-from .detection import CanceledByUserException
+try:
+    from .detection import detect_peaks
+    from .detection import NoPeaksDetectedException
+    from .detection import CanceledByUserException
+except:
+    pass
 
 if in_ipython():
     logformat = '%(asctime)s' + ':'

@@ -1,5 +1,5 @@
-Gaussian Peak detection algorithm
-=================================
+peak_detection - Gaussian Peak detection algorithm
+==================================================
 
 Python implementation of the Gaussian peak detection described in
 [Segré et al. Nature Methods (2008)](http://www.nature.com/nmeth/journal/v5/n8/full/nmeth.1233.html).
@@ -7,17 +7,26 @@ Python implementation of the Gaussian peak detection described in
 Contributors
 ------------
 
-- Guillaume Gay `gllm.gay@gmail.com` : main author
-- Hadrien Mary `hadrien.mary@gmail.com` : contributor
+- Guillaume Gay <gllm.gay@gmail.com> : main author
+- Hadrien Mary <hadrien.mary@gmail.com> : contributor
+
+`peak_detection` is part of the BNOI Project <https://github.com/bnoi>.
 
 Dependence
 ----------
 
-- python 2.7
 - numpy
 - scipy
 - scikit-image
 - pandas
+
+Installation
+------------
+
+You can directly clone this repo and manually `import peak_detection` in your
+project. Or you can install `peak_detection` via pip:
+
+    pip install -e git+https://github.com/bnoi/peak_detection.git#egg=master
 
 Usage example
 --------------
@@ -109,3 +118,8 @@ stacks id
        8   37.022877  125.102197  2.9038  195.396065  2  2
 
 ```
+
+License
+-------
+
+BSD license. See [LICENSE](https://github.com/bnoi/peak_detection/blob/master/LICENSE) for details.
