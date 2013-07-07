@@ -14,6 +14,7 @@ import os
 import logging
 import multiprocessing
 import itertools
+import gc
 
 import numpy as np
 import pandas as pd
@@ -111,6 +112,9 @@ def detect_peaks(array,
     n_peaks = peaks.shape[0]
     log.info('%i peaks detected in %i stacks' % (n_peaks, n_stacks))
 
+    gc.get_referrers(array)
+    del array
+    gc.collect()
     return peaks
 
 
@@ -148,7 +152,10 @@ def find_stack_peaks(stacks,
     # Array shape preprocessing: work only with 3 dimensions array
     original_shape = stacks.shape
     if len(original_shape) == 4:
-        stacks = stacks.reshape((-1, ) + original_shape[-2:])
+        new_stacks = stacks.reshape((-1, ) + original_shape[-2:])
+        del stacks
+        stacks = new_stacks
+        del new_stacks
         shape_name = shape_label[:2]
     else:
         shape_name = shape_label[:1]
@@ -204,8 +211,9 @@ def find_stack_peaks(stacks,
             pprogress(-1)
 
     except KeyboardInterrupt:
-        pool.terminate()
-        pool.join()
+        if parallel:
+            pool.terminate()
+            pool.join()
         raise CanceledByUserException(
             'Peak detection has been canceled by user')
 
@@ -251,6 +259,7 @@ def find_stack_peaks(stacks,
         j_col = map(lambda x: index[x][1], stacks_id)
         peaks[j_name] = j_col
 
+    del stacks
     log.info('Detection is done')
     return peaks
 
