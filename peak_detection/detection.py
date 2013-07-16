@@ -7,7 +7,10 @@ Segré et al. Nature Methods **5**, 8 (2008).[1]_
 .. [1] http://dx.doi.org/10.1038/nmeth.1233
 """
 
+from __future__ import unicode_literals
 from __future__ import division
+from __future__ import absolute_import
+from __future__ import print_function
 
 import sys
 import os
@@ -187,19 +190,19 @@ def find_stack_peaks(stacks,
     i = 0
 
     # Build arguments list
-    arguments = itertools.izip(
-        stacks, itertools.repeat(detection_parameters), range(nb_stacks))
+    arguments = zip(
+        stacks, itertools.repeat(detection_parameters), list(range(nb_stacks)))
 
     try:
         # Launch peak_detection
         if parallel:
             results = pool.imap_unordered(find_gaussian_peaks, arguments)
         else:
-            results = itertools.imap(find_gaussian_peaks, arguments)
+            results = map(find_gaussian_peaks, arguments)
 
         # Get unordered results and log progress
         for i in range(nb_stacks):
-            result = results.next()
+            result = next(results)
             if show_progress:
                 pprogress((i + 1) / nb_stacks * 100, "%i peaks on stack %i" % (len(result[1]), result[0]))
             elif verbose:
@@ -251,12 +254,12 @@ def find_stack_peaks(stacks,
     stacks_id = peaks.index.get_level_values('stacks')
 
     i_name = shape_label[0]
-    i_col = map(lambda x: index[x][0], stacks_id)
+    i_col = [index[x][0] for x in stacks_id]
     peaks[i_name] = i_col
 
     if len(original_shape) == 4:
         j_name = shape_label[1]
-        j_col = map(lambda x: index[x][1], stacks_id)
+        j_col = [index[x][1] for x in stacks_id]
         peaks[j_name] = j_col
 
     del stacks

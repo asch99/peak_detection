@@ -15,11 +15,12 @@ Contributors
 Dependence
 ----------
 
-- numpy
-- scipy
-- scikit-image
-- pandas
-- matplotlib (optional)
+- Python 2.7 and Python 3
+- numpy >= 1.7
+- scipy >= 0.12
+- scikit-image >= 0.8
+- pandas >= 0.11
+- matplotlib (optional) >= 1.2
 
 Installation
 ------------

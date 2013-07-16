@@ -1,3 +1,8 @@
+from __future__ import unicode_literals
+from __future__ import division
+from __future__ import absolute_import
+from __future__ import print_function
+
 import sys
 sys.path.append("..")
 
@@ -24,6 +29,6 @@ peaks = detect_peaks(arr,
                      **detection_parameters)
 
 for id, p in peaks.groupby(level="stacks"):
-    print(p.shape[0])
+    print((p.shape[0]))
 
 show_peaks(arr, peaks, 3)
