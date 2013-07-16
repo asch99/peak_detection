@@ -71,9 +71,6 @@ def in_ipython():
     else:
         return True
 
-__all__ = ['detect_peaks', 'show_peaks',
-           'NoPeaksDetectedException', 'CanceledByUserException']
-
 try:
     from .detection import detect_peaks
     from .show import show_peaks
@@ -81,6 +78,9 @@ try:
     from .detection import CanceledByUserException
 except:
     pass
+
+__all__ = ['detect_peaks', 'show_peaks',
+           'NoPeaksDetectedException', 'CanceledByUserException']
 
 if in_ipython():
     logformat = '%(asctime)s' + ':'

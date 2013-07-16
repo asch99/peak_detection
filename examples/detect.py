@@ -24,6 +24,6 @@ peaks = detect_peaks(arr,
                      **detection_parameters)
 
 for id, p in peaks.groupby(level="stacks"):
-    print p.shape[0]
+    print(p.shape[0])
 
 show_peaks(arr, peaks, 3)
