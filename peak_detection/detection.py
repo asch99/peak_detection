@@ -220,6 +220,10 @@ def find_stack_peaks(stacks,
         raise CanceledByUserException(
             'Peak detection has been canceled by user')
 
+    if parallel:
+        pool.close()
+        pool.terminate()
+
     # Sort peaks and remove index used to sort
     log.info('Reordering stacks')
     all_peaks.sort(key=lambda x: x[0])
