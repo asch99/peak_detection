@@ -12,12 +12,12 @@ from __future__ import division
 from __future__ import absolute_import
 from __future__ import print_function
 
-import sys
 import os
 import logging
 import multiprocessing
 import itertools
 import gc
+import subprocess
 
 import numpy as np
 import pandas as pd
@@ -25,7 +25,6 @@ import pandas as pd
 from scipy.optimize import leastsq
 from skimage import feature
 
-from peak_detection import in_ipython
 from .progress import pprogress
 
 log = logging.getLogger(__name__)
@@ -175,7 +174,8 @@ def find_stack_peaks(stacks,
         # Snippet to allow multiprocessing while importing
         # module such as numpy (only needed on linux)
         if os.name == 'posix':
-            os.system("taskset -p 0xff %d" % os.getpid())
+            subprocess.call("taskset -p 0xff %d" % os.getpid(),
+                            shell=True, stdout=subprocess.DEVNULL)
 
         def init_worker():
             import signal
