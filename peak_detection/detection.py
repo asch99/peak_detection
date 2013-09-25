@@ -204,7 +204,9 @@ def find_stack_peaks(stacks,
         for i in range(nb_stacks):
             result = next(results)
             if show_progress:
-                pprogress((i + 1) / nb_stacks * 100, "%i peaks on stack %i" % (len(result[1]), result[0]))
+                pprogress((i + 1) / nb_stacks * 100,
+                          ("%i/%i - %i peaks detected on stack n°%i" %
+                           ((i + 1), nb_stacks, len(result[1]), result[0])))
             elif verbose:
                 log.info('Detection done for stack number %i: %i peaks detected (%i/%i - %i%%)' %
                      (result[0], len(result[1]), i + 1, nb_stacks, ((i + 1) * 100 / nb_stacks)))
