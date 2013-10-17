@@ -428,13 +428,19 @@ def glrt_detection(image, r0, w_s, threshold):
     g_patch = gauss_patch(r0, w_s)
     g_patch -= g_patch.mean()
     g_squaresum = np.sum(g_patch ** 2)
-    hmap = np.array([hypothesis_map(image[i: i + w_s, j: j + w_s],
-                                    g_patch, g_squaresum)
-                     for i, j in np.ndindex((w - w_s, h - w_s))])
+
+    hmap = []
+    for i, j in np.ndindex((w - w_s, h - w_s)):
+        h = hypothesis_map(image[i: i + w_s, j: j + w_s],
+                           g_patch,
+                           g_squaresum)
+        hmap.append(h)
+    hmap = np.array(hmap)
+
     hmap = -2 * hmap.reshape((w - w_s, h - w_s))
     peaks_coords = feature.peak_local_max(hmap, 3,
                                           threshold_abs=threshold)
-    peaks_coords += w_s // 2
+    peaks_coords += w_s / 2
     return peaks_coords
 
 
