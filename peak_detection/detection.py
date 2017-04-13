@@ -199,7 +199,7 @@ def find_stack_peaks(stacks,
         if parallel:
             results = pool.imap_unordered(find_gaussian_peaks, arguments)
         else:
-            results = map(find_gaussian_peaks, arguments)
+            results = iter(map(find_gaussian_peaks, arguments)) # python2 and python3
 
         # Get unordered results and log progress
         for i in range(nb_stacks):
@@ -455,6 +455,8 @@ def hypothesis_map(patch, g_patch, g_squaresum):
 
     intensity = multiplicative.sum()
     normalisation = w_s * patch.std()
+    if normalisation == 0.:
+        return 0
     ratio = (w_s ** 2 / 2.) * np.log(1 - (intensity
                                           / normalisation) ** 2
                                      / g_squaresum)
