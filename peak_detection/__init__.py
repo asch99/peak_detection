@@ -73,7 +73,7 @@ def in_ipython():
 
 #try:
 from .detection import detect_peaks
-from .show import show_peaks
+from .show import show_peaks, show_peaks_plt
 from .detection import NoPeaksDetectedException
 from .detection import CanceledByUserException
 #except:

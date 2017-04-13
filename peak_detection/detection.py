@@ -174,8 +174,9 @@ def find_stack_peaks(stacks,
         # Snippet to allow multiprocessing while importing
         # module such as numpy (only needed on linux)
         if os.name == 'posix':
-            subprocess.call("taskset -p 0xff %d" % os.getpid(),
-                            shell=True, stdout=subprocess.DEVNULL)
+            with open(os.devnull, "w") as fnull: 
+                subprocess.call("taskset -p 0xff %d" % os.getpid(),
+                                shell=True, stdout=fnull)
 
         def init_worker():
             import signal
@@ -346,7 +347,7 @@ def image_deflation(image, peaks, w_s):
     Substracts the detected Gaussian peaks from the input image and
     returns the deflated image.
     """
-    d_image = image.copy()
+    d_image = image.copy().astype(float)
     for peak in peaks:
         xc, yc, width, I = peak
         xc_rel = w_s // 2 + xc - np.floor(xc)
@@ -440,7 +441,7 @@ def glrt_detection(image, r0, w_s, threshold):
     hmap = -2 * hmap.reshape((w - w_s, h - w_s))
     peaks_coords = feature.peak_local_max(hmap, 3,
                                           threshold_abs=threshold)
-    peaks_coords += w_s / 2
+    peaks_coords += int(w_s / 2)
     return peaks_coords
 
 
@@ -457,7 +458,7 @@ def hypothesis_map(patch, g_patch, g_squaresum):
     ratio = (w_s ** 2 / 2.) * np.log(1 - (intensity
                                           / normalisation) ** 2
                                      / g_squaresum)
-    return ratio
+    return int(ratio)
 
 
 def gauss_estimate(patch, w_s):

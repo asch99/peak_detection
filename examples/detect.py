@@ -1,14 +1,10 @@
-from __future__ import unicode_literals
-from __future__ import division
-from __future__ import absolute_import
+#!/usr/bin/env python
 from __future__ import print_function
 
 import sys
 sys.path.append("..")
 
 from peak_detection import detect_peaks
-from peak_detection import show_peaks
-
 from tifffile import TiffFile
 
 fname = 'sample.tif'
@@ -28,7 +24,8 @@ peaks = detect_peaks(arr,
                      show_progress=False,
                      **detection_parameters)
 
+from peak_detection import show_peaks_plt, show_peaks
+show_peaks_plt(arr, peaks, 3)
+show_peaks(arr, peaks)
 for id, p in peaks.groupby(level="stacks"):
-    print((p.shape[0]))
-
-show_peaks(arr, peaks, 3)
+    print(p.shape[0])
